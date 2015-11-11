@@ -2,6 +2,8 @@ package hr.fer.rznu.resource;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.websocket.server.PathParam;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +45,16 @@ public class PostsController {
 		model.addAttribute("posts", postList);
 
 		return "posts";
+	}
+	
+	@RequestMapping(value = "/**/posts/{postId}", method = RequestMethod.DELETE)
+	public String deletePost(@PathVariable final int postId, HttpServletRequest request, HttpServletResponse response){
+//		PostsJDBCTemplate posts = (PostsJDBCTemplate) appContext.getBean("postsJDBCTemplate");
+//		posts.delete(postId);
+		String mapping = request.getServletPath();
+		System.out.println(mapping);
+		System.out.println(mapping.substring(0, mapping.lastIndexOf('/')));
+		return "redirect:/users";
 	}
 	
 	
