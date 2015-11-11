@@ -11,25 +11,28 @@
 		text-align: center;
 	}
 </style>
-
+<c:if test="${not empty sessionScope.username}">
 <script type="text/javascript" src = "resources/jquery-1.11.3.min.js"></script>
 
 <script type="text/javascript">
 	function deletePost(postId) {
-		alert('CALLED!');
 		$.ajax({
             type: 'DELETE',
             url: "posts/" + postId,
             success: function(result) {
-                alert('ok deleted');
+                window.location.reload();
             },
             failure: function(fail) {
             	alert('FAIL');
             }
         })		
 	}
+	
+	function updatePost(postId) {
+		window.location = "posts/update?postId=" + postId;
+	}
 </script>
-
+</c:if>
 </head>
 
 <t:userpage>
@@ -38,7 +41,7 @@
 		  <tr>
 		    <th>User</th>
 		    <th>Post</th>
-		    <c:if test="${empty sessionScope.username}">
+		    <c:if test="${not empty sessionScope.username}">
 		    <th>Action</th>
 		    </c:if>
 		  </tr>
@@ -46,9 +49,13 @@
 				<tr>
 					<td><c:out value="${ post.username }"></c:out></td>
 					<td align = "left"><c:out value="${ post.postText }"></c:out></td>
-					<c:if test="${empty sessionScope.username}">
-					<td> <button onclick="deletePost(5)"> delete </button> </td>
+					<c:if test="${not empty sessionScope.username}">
+					<td id = <c:out value="${ post.postId }"/>>
+					 <button onclick="deletePost(this.parentNode.id)"> delete </button> 
+					 <button onclick="updatePost(this.parentNode.id)"> edit </button>
+					</td>
 					</c:if>
+					
 				</tr>
 		  </c:forEach>
 		</table>
