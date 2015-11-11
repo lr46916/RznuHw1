@@ -9,6 +9,6 @@
 </head>
 <t:userpage>
 	<jsp:body>
-		HELOOOOO!
+		HELLOOOOO!
 	</jsp:body>
 </t:userpage>

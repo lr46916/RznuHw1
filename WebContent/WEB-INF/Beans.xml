@@ -22,6 +22,11 @@
 	      <property name="dataSource"  ref="dataSource" />    
 	</bean>
 	
+	<!-- Posts JDBCtemplate bean -->
+	<bean id = "postsJDBCTemplate" class = "hr.fer.rznu.jdbc.templates.PostsJDBCTemplate">
+	      <property name="dataSource"  ref="dataSource" />    
+	</bean>
+	
 	<!-- Logger bean -->
 	<bean id = "rznuLogger" destroy-method="close" class = "hr.fer.rznu.logging.RznuLogger" scope = "singleton">
 		<property name = "output" value = "rznuLogging.txt" />

@@ -10,8 +10,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import hr.fer.rznu.jdbc.PostsDAO;
 import hr.fer.rznu.jdbc.templates.postclasses.Post;
 import hr.fer.rznu.jdbc.templates.postclasses.PostMapper;
-import hr.fer.rznu.jdbc.templates.userclasses.User;
-import hr.fer.rznu.jdbc.templates.userclasses.UserMapper;
 
 public class PostsJDBCTemplate implements PostsDAO {
 
@@ -32,7 +30,7 @@ public class PostsJDBCTemplate implements PostsDAO {
 
 	@Override
 	public Post getpost(Integer id) {
-		String SQL = "select * from PostTable where id = ?";
+		String SQL = "select * from UserTable JOIN PostTable ON id = userId where postid = ?";
 		Post post = null;
 		try{
 			post = jdbcTemplateObject.queryForObject(SQL, new Object[] { id }, new PostMapper());
@@ -44,15 +42,15 @@ public class PostsJDBCTemplate implements PostsDAO {
 
 	@Override
 	public List<Post> listposts() {
-		String SQL = "select * from PostTable";
+		String SQL = "select * from UserTable JOIN PostTable ON id = userId";
 		List<Post> posts = jdbcTemplateObject.query(SQL, new PostMapper());
 		return posts;
 	}
 
 	@Override
 	public List<Post> listposts(String username) {
-		String SQL = "select * from StudentTable JOIN PostTable ON id = studentId";
-		List<Post> posts = jdbcTemplateObject.query(SQL, new PostMapper());
+		String SQL = "select * from UserTable JOIN PostTable ON id = userId where username = ?";
+		List<Post> posts = jdbcTemplateObject.query(SQL, new PostMapper(), username);
 		return posts;
 	}
 

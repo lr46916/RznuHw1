@@ -30,4 +30,9 @@ public class Post {
 		this.postText = postText;
 	}
 
+	@Override
+	public String toString(){
+		return String.format("%d, %s %s", postId , username, postText);
+	}
+	
 }

@@ -23,16 +23,15 @@ ul#menu li a:hover {
 <t:genericpage>
 	<jsp:attribute name="header">
 		<ul id="menu">
+			<li><a href="/rznu/users"> users </a></li>
+			<li><a href="/rznu/posts"> posts </a></li>
+			<li><a href="/rznu/api"> api </a> </li>
 		<c:choose>
 		<c:when test="${empty sessionScope.username}">
-			<h1><c:out value = "${sessionScope.username }"></c:out></h1>
 			<li><a href="/rznu/logIn"> logIn </a> </li>
 			<li><a href="/rznu/register"> register </a></li>
 		</c:when>
 		<c:otherwise>
-			<li><a href="/rznu/users"> users </a></li>
-			<li><a href="/rznu/photos"> photos </a></li>
-			<li><a href="/rznu/api"> api </a> </li>
 			<li><a href="/rznu/logOut"> logOut </a></li>
 		</c:otherwise>
 		</c:choose>	

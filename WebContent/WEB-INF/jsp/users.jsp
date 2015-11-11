@@ -13,7 +13,7 @@
 		<h3> Users: </h3>
 		<ul>	
 		<c:forEach items="${users}" var="user">
-				<li><c:out value="${ user.username }"></c:out></li>
+				<li><a href = "/rznu/users/<c:out value="${ user.username }" />/posts"><c:out value="${ user.username }" /></a></li>
 		</c:forEach>	
 		</ul>
 	</jsp:body>
