@@ -1,7 +1,9 @@
-package hr.fer.rznu.jdbc.templates.userclasses;
+package hr.fer.rznu.jdbc;
 
 import java.util.List;
 import javax.sql.DataSource;
+
+import hr.fer.rznu.jdbc.templates.userclasses.User;
 
 public interface UsersDAO {
 /** 

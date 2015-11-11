@@ -8,7 +8,7 @@
 <title>Log in</title>
 </head>
 <body>
-	<form class="centered" action="/api/logInRequest" method="POST">
+	<form class="centered" action="/rznu/logInRequest" method="POST">
 		<input id="username" name="username" type="text"><br>
 		<input name="password" type="password"><br>
 		<input value="Login" type="submit">

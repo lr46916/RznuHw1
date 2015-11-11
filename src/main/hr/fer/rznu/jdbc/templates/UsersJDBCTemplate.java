@@ -7,9 +7,9 @@ import javax.sql.DataSource;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 
+import hr.fer.rznu.jdbc.UsersDAO;
 import hr.fer.rznu.jdbc.templates.userclasses.User;
 import hr.fer.rznu.jdbc.templates.userclasses.UserMapper;
-import hr.fer.rznu.jdbc.templates.userclasses.UsersDAO;
 
 public class UsersJDBCTemplate implements UsersDAO {
 
@@ -31,7 +31,12 @@ public class UsersJDBCTemplate implements UsersDAO {
 	@Override
 	public User getUser(Integer id) {
 		String SQL = "select * from UserTable where id = ?";
-		User student = jdbcTemplateObject.queryForObject(SQL, new Object[] { id }, new UserMapper());
+		User student = null;
+		try {
+			student = jdbcTemplateObject.queryForObject(SQL, new Object[] { id }, new UserMapper());
+		} catch (DataAccessException e) {
+			student = null;
+		}
 		return student;
 	}
 
