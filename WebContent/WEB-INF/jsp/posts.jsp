@@ -12,7 +12,8 @@
 	}
 </style>
 <c:if test="${not empty sessionScope.username}">
-<script type="text/javascript" src = "resources/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src = "/rznu/resources/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src = "/rznu/resources/updates.js"></script>
 
 <script type="text/javascript">
 	function deletePost(postId) {
@@ -28,8 +29,13 @@
         })		
 	}
 	
-	function updatePost(postId) {
-		window.location = "posts/update?postId=" + postId;
+	function updatePostView(postId) {
+		window.location = "/rznu/posts/update?postId=" + postId;
+	}
+	
+	function post(){
+		var postData = $("#textData").val();
+		updatePost(-1, postData);
 	}
 </script>
 </c:if>
@@ -52,12 +58,18 @@
 					<c:if test="${not empty sessionScope.username}">
 					<td id = <c:out value="${ post.postId }"/>>
 					 <button onclick="deletePost(this.parentNode.id)"> delete </button> 
-					 <button onclick="updatePost(this.parentNode.id)"> edit </button>
+					 <button onclick="updatePostView(this.parentNode.id)"> edit </button>
 					</td>
 					</c:if>
 					
 				</tr>
 		  </c:forEach>
 		</table>
+		<c:if test="${not disablePosting and not empty sessionScope.username}">
+		<div>
+			<textarea id = "textData" rows = "2" cols = "50" ></textarea>
+			<button onClick = "post()">post</button>
+		</div>
+		</c:if>
 	</jsp:body>
 </t:userpage>

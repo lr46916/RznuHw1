@@ -17,7 +17,7 @@ public interface PostsDAO {
 	 * This is the method to be used to create
 	 * a record in the posts table.
 	 */
-	public void create(String username, String post);
+	public void create(int userId, String post);
 	
 	/** 
 	 * This is the method to be used to list down
@@ -50,4 +50,10 @@ public interface PostsDAO {
 	 * a record into the posts table.
 	 */
 	public void update(Integer id, Integer userId, String post);
+	
+	/** 
+	 * This is the method to be used to update
+	 * a record into the posts table.
+	 */
+	public void update(Integer id, String posttext);
 }

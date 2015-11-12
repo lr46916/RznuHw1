@@ -2,6 +2,7 @@ package hr.fer.rznu.logging;
 
 import java.io.BufferedOutputStream;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -20,7 +21,7 @@ public class RznuLogger implements ILogger {
 		}
 		try {
 			writter = new BufferedWriter(
-					new OutputStreamWriter(new BufferedOutputStream(new FileOutputStream(pathToFile))));
+					new OutputStreamWriter(new BufferedOutputStream(new FileOutputStream(new File(pathToFile)))));
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -31,13 +32,13 @@ public class RznuLogger implements ILogger {
 		try {
 			writter.write(input);
 			writter.newLine();
-//			writter.flush();
+			// writter.flush();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
-	
-	public void close(){
+
+	public void close() {
 		try {
 			writter.close();
 		} catch (IOException e) {
