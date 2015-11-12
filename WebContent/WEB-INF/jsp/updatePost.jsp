@@ -9,6 +9,6 @@
 </head>
 <t:userpage>
 	<jsp:body>
-		
+		BOK BOK
 	</jsp:body>
 </t:userpage>
