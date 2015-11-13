@@ -32,4 +32,8 @@
 		<property name = "output" value = "rznuLogging.txt" />
 	</bean>
 	
+	<bean id = "apiController" class = "hr.fer.rznu.ApiController" scope = "request">
+	</bean>
+	
+	
 </beans>

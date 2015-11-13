@@ -23,9 +23,9 @@ public class PostsJDBCTemplate implements PostsDAO {
 	}
 	
 	@Override
-	public void create(String username, String post) {
+	public void create(int userId, String post) {
 		String SQL = "insert into PostTable (userId, postText) values (?, ?)";
-		jdbcTemplateObject.update(SQL,username, post);
+		jdbcTemplateObject.update(SQL,userId, post);
 	}
 
 	@Override
@@ -62,8 +62,14 @@ public class PostsJDBCTemplate implements PostsDAO {
 
 	@Override
 	public void update(Integer id, Integer userId, String post) {
-		String SQL = "update UserTable set userid = ?, postText = ? where postid = ?";
+		String SQL = "update PostTable set userid = ?, postText = ? where postid = ?";
 		jdbcTemplateObject.update(SQL, userId, post, id);
+	}
+	
+	@Override
+	public void update(Integer id, String posttext) {
+		String SQL = "update PostTable set postText = ? where postid = ?";
+		jdbcTemplateObject.update(SQL, posttext, id);
 	}
 
 }

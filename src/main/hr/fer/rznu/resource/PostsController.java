@@ -2,7 +2,7 @@ package hr.fer.rznu.resource;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,8 +18,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+
 import hr.fer.rznu.jdbc.templates.PostsJDBCTemplate;
+import hr.fer.rznu.jdbc.templates.UsersJDBCTemplate;
 import hr.fer.rznu.jdbc.templates.postclasses.Post;
+import hr.fer.rznu.jdbc.templates.userclasses.User;
 
 @Controller
 public class PostsController {
@@ -47,6 +50,8 @@ public class PostsController {
 		List<Post> postList = posts.listposts(username);
 
 		model.addAttribute("posts", postList);
+		
+		model.addAttribute("disablePosting", true);
 
 		return "posts";
 	}
@@ -69,20 +74,56 @@ public class PostsController {
 		}
 	}
 
-	@RequestMapping(value = "/**/posts/{postId}", method = RequestMethod.PUT)
-	public void updatePost(@PathVariable final int postId, HttpSession session, HttpServletRequest request,
-			HttpServletResponse response) throws IOException {
-		
-		if(checkInvalidAccess(postId, session, response)){
-			return;
+	@RequestMapping(value = "/**/posts", method = RequestMethod.PUT)
+	public void createPost(HttpSession session, HttpServletRequest request, HttpServletResponse response)
+			throws IOException {
+		String sessionUsername = (String) session.getAttribute("username");
+
+		if (sessionUsername == null) {
+			sendForbbidenAccess(response);
 		}
 		
 		BufferedReader is = request.getReader();
-		
+
 		char[] data = new char[256];
-		
+
 		int res = is.read(data);
+
+		String posttext = new String(Arrays.copyOf(data, res));
 		
+		UsersJDBCTemplate users = (UsersJDBCTemplate) appContext.getBean("usersJDBCTemplate");
+		PostsJDBCTemplate posts = (PostsJDBCTemplate) appContext.getBean("postsJDBCTemplate");
+		
+		User user = users.getUser(sessionUsername);
+		
+		posts.create(user.getId(), posttext);
+	}
+
+	@RequestMapping(value = "/**/posts/{postId}", method = RequestMethod.PUT)
+	public void updatePost(@PathVariable final int postId, HttpSession session, HttpServletRequest request,
+			HttpServletResponse response) throws IOException {
+
+		if (checkInvalidAccess(postId, session, response)) {
+			return;
+		}
+
+		BufferedReader is = request.getReader();
+
+		char[] data = new char[256];
+
+		int res = is.read(data);
+
+		String posttext = new String(Arrays.copyOf(data, res));
+
+		PostsJDBCTemplate posts = (PostsJDBCTemplate) appContext.getBean("postsJDBCTemplate");
+
+		Post post = posts.getpost(postId);
+
+		if (post != null) {
+			posts.update(postId, posttext);
+		} else {
+
+		}
 	}
 
 	@RequestMapping(value = "/**/posts/{postId}", method = RequestMethod.DELETE)
