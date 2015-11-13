@@ -42,6 +42,8 @@ public List<User> listUsers();
  */
 public void delete(Integer id);
 
+public void delete(String username);
+
 /** 
  * This is the method to be used to update
  * a record into the Student table.

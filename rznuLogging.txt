@@ -1,1 +1,4 @@
 /logInRequest firefox
+/logInRequest firefox
+/registerRequest firefox
+/logOut firefox

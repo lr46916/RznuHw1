@@ -22,7 +22,14 @@ public class AuthenticationController {
 
 	@Autowired
 	private ApplicationContext appContext;
-
+	
+	public final static String successfulyRegMsg = "Successfully registered. You can now log in with chosen username and password.";
+	public final static String occupiedUsernameMsg = "Username already taken. Please choose another one.";
+	public final static String logInFailMsg = "Login failed. Invalid username or password.";
+	public final static String succesfulLogInMsgFormat = "Welcome %s! Enjoy jour stay.";
+	public final static String logOutFailMsg = "You must first log in in order to be able to log out.";
+	public final static String logOutSuccesMsgFormat = "Log out successful. Goodbye  %s.";
+	
 	@RequestMapping(value = "/register")
 	public String register(HttpSession session, ModelMap model) {
 		return "register";
@@ -40,11 +47,11 @@ public class AuthenticationController {
 		List<String> messages = new ArrayList<>();
 
 		if (user != null) {
-			model.addAttribute("message", "Username already taken. Please choose another one.");
+			model.addAttribute("message", occupiedUsernameMsg);
 			return "register";
 		} else {
 			users.create(username, password);
-			messages.add("Successfully registered. You can now log in with chosen username and password.");
+			messages.add(successfulyRegMsg);
 			model.addAttribute("messages", messages);
 			return "infMsgAndRedirect";
 		}
@@ -75,13 +82,13 @@ public class AuthenticationController {
 		UsersJDBCTemplate users = (UsersJDBCTemplate) appContext.getBean("usersJDBCTemplate");
 
 		User user = users.getUser(username);
-
+		
 		if (user != null) {
 			session.setAttribute("username", username);
-			messages.add("Welcome " + username + "! Enjoy jour stay.");
+			messages.add(String.format(succesfulLogInMsgFormat, username));
 			model.addAttribute("messages", messages);
 		} else {
-			model.addAttribute("message", "Login failed. Invalid username or password.");
+			model.addAttribute("message", logInFailMsg);
 			return "logInPage";
 		}
 		return "infMsgAndRedirect";
@@ -95,9 +102,9 @@ public class AuthenticationController {
 		List<String> messages = new ArrayList<>();
 
 		if (session.getAttribute("username") == null) {
-			messages.add("You must first log in in order to be able to log out.");
+			messages.add(logOutFailMsg);
 		} else {
-			messages.add("Log out successful. Goodbye " + session.getAttribute("username") + ".");
+			messages.add(String.format(logOutSuccesMsgFormat, session.getAttribute("username")));
 			session.invalidate();
 		}
 		model.addAttribute("messages", messages);

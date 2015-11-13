@@ -43,13 +43,13 @@ public class UsersJDBCTemplate implements UsersDAO {
 	@Override
 	public User getUser(String username) {
 		String SQL = "select * from UserTable where username = ?";
-		User student = null;
+		User user = null;
 		try {
-			student = jdbcTemplateObject.queryForObject(SQL, new Object[] { username }, new UserMapper());
+			user = jdbcTemplateObject.queryForObject(SQL, new Object[] { username }, new UserMapper());
 		} catch (DataAccessException e) {
-			student = null;
+			user = null;
 		}
-		return student;
+		return user;
 	}
 
 	@Override
@@ -69,6 +69,12 @@ public class UsersJDBCTemplate implements UsersDAO {
 	public void update(Integer id, String username, String passwordhash) {
 		String SQL = "update UserTable set username = ?, passwordhash = ? where id = ?";
 		jdbcTemplateObject.update(SQL, username, passwordhash, id);
+	}
+
+	@Override
+	public void delete(String username) {
+		String SQL = "delete from UserTable where username = ?";
+		jdbcTemplateObject.update(SQL, username);		
 	}
 
 }

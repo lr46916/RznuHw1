@@ -15,7 +15,12 @@ public class LoggingInterceptor implements HandlerInterceptor {
 
 	private String getBrowserName(HttpServletRequest request) {
 
-		String userAgent = request.getHeader("User-Agent").toLowerCase();
+		String userAgent = request.getHeader("User-Agent");
+		
+		if(userAgent == null)
+			return "unknown";
+		
+		userAgent = userAgent.toLowerCase();
 		
 		if (userAgent.contains("firefox")) {
 			return "firefox";

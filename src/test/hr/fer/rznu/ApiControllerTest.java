@@ -47,11 +47,7 @@ public class ApiControllerTest {
 		getReq.header("User-Agent", "firefox").header("Accept",
 				"text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
 
-		ResultActions result = mvcMock.perform(getReq).andDo(print());
-
-		MvcResult mvcRes = result.andReturn();
-
-		System.out.println(mvcRes.getResponse().getContentAsString());
+		ResultActions result = mvcMock.perform(getReq);
 
 		result.andExpect(status().isOk()).andExpect(view().name("api")).andExpect(forwardedUrl("/WEB-INF/jsp/api.jsp"));
 	}
