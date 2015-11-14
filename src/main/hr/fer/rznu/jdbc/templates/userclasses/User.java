@@ -29,5 +29,14 @@ public class User {
 	public void setPasswordhash(String passwordhash) {
 		this.passwordhash = passwordhash;
 	}
+	
+	@Override
+	public boolean equals(Object o){
+		if(o instanceof User) {
+			return id == ((User)o).id;
+		} else {
+			return false;
+		}
+	}
 
 }

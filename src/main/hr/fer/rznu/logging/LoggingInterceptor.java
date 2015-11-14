@@ -40,8 +40,9 @@ public class LoggingInterceptor implements HandlerInterceptor {
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 		ILogger logger = (ILogger) appContext.getBean("rznuLogger");
-		System.out.println(request.getRequestURI() + " " + getBrowserName(request));
-		logger.writeLog(request.getRequestURI() + " " + getBrowserName(request));
+		String mapping = request.getRequestURI();
+		System.out.println(mapping + " " + getBrowserName(request));
+		logger.writeLog(mapping + " " + getBrowserName(request));
 		return true;
 	}
 

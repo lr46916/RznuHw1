@@ -21,7 +21,7 @@ public class RznuLogger implements ILogger {
 		}
 		try {
 			writter = new BufferedWriter(
-					new OutputStreamWriter(new BufferedOutputStream(new FileOutputStream(new File(pathToFile)))));
+					new OutputStreamWriter(new BufferedOutputStream(new FileOutputStream(new File(pathToFile), true))));
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -32,7 +32,7 @@ public class RznuLogger implements ILogger {
 		try {
 			writter.write(input);
 			writter.newLine();
-			// writter.flush();
+			writter.flush();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

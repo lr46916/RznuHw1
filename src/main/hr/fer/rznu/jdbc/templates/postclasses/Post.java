@@ -35,4 +35,13 @@ public class Post {
 		return String.format("%d, %s %s", postId , username, postText);
 	}
 	
+	@Override
+	public boolean equals(Object o){
+		if(o instanceof Post){
+			return this.postId == ((Post)o).postId;
+		} else {
+			return false;
+		}
+	}
+	
 }

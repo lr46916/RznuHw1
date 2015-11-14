@@ -35,5 +35,8 @@
 	<bean id = "apiController" class = "hr.fer.rznu.ApiController" scope = "request">
 	</bean>
 	
+	<bean id = "apiDesc" class = "hr.fer.rznu.ApiDesc" scope = "singleton" >
+		<property name = "filename" value = "apiList.txt" />
+	</bean>
 	
 </beans>

@@ -1,6 +1,7 @@
 package hr.fer.rznu;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -8,8 +9,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class ApiController {
 	
 	@RequestMapping(value = "/api", method = RequestMethod.GET)
-	public String showApi(){
+	public String showApi(ModelMap model) {
+		model.addAttribute("apiList", ApiDesc.getApiList());
 		return "api";
 	}
-	
+
 }
