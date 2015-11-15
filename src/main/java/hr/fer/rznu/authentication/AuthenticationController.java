@@ -83,7 +83,7 @@ public class AuthenticationController {
 
 		User user = users.getUser(username);
 		
-		if (user != null) {
+		if (user != null && password.equals(user.getPasswordhash())) {
 			session.setAttribute("username", username);
 			messages.add(String.format(succesfulLogInMsgFormat, username));
 			model.addAttribute("messages", messages);
