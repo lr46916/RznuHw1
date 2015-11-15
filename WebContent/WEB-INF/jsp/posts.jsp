@@ -1,7 +1,20 @@
+<%@page import="java.util.Collections"%>
+<%@page import="java.util.Enumeration"%>
+<%@page import="java.util.Collection"%>
+<%@page import="hr.fer.rznu.json.JSONViewFromater"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
+<c:set var="format" value = "json" ></c:set>
+
+<c:choose>
+<c:when test="${ param.format != null and param.format.equals(format) }">
+	<% response.setContentType("application/json"); %>
+	<% JSONViewFromater.format(Collections.singletonMap("posts", request.getAttribute("posts")), response); %>
+</c:when>
+<c:otherwise>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -18,6 +31,10 @@
 <script type="text/javascript">
 	function deletePost(postId) {
 		$.ajax({
+			beforeSend: function(xhrObj) {
+	            xhrObj.setRequestHeader("Content-Type", "text/plain");
+	            xhrObj.setRequestHeader("Accept", "application/json");
+	        },
             type: 'DELETE',
             url: "posts/" + postId,
             success: function(result) {
@@ -72,3 +89,5 @@
 		</c:if>
 	</jsp:body>
 </t:userpage>
+</c:otherwise>
+</c:choose>

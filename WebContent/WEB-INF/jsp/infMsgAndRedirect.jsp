@@ -1,3 +1,5 @@
+<%@page import="java.util.Collections"%>
+<%@page import="hr.fer.rznu.json.JSONViewFromater"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -9,6 +11,12 @@
 	<c:set var = "adress" value = "/rznu" />
 </c:if>
 
+<c:choose>
+<c:when test="${ param.format != null and param.format.equals(format) }">
+	<% response.setContentType("application/json"); %>
+	<% JSONViewFromater.format(Collections.singletonMap("messages", request.getAttribute("posts")), response); %>
+</c:when>
+<c:otherwise>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -35,3 +43,5 @@
 	</script>
 </body>
 </html>
+</c:otherwise>
+</c:choose>

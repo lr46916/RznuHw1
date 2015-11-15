@@ -1,0 +1,7 @@
+hr/fer/rznu/authentication/AuthenticationControllerTest.class
+hr/fer/rznu/ApiControllerTest.class
+hr/fer/rznu/resource/UsersControllerTest.class
+hr/fer/rznu/jdbc/templates/PostsJDBCTemplateMock.class
+hr/fer/rznu/resource/PostsControllerTest.class
+hr/fer/rznu/jdbc/templates/PostsJDBCTemplateMock$PostData.class
+hr/fer/rznu/jdbc/templates/UsersJDBCTemplateMock.class
